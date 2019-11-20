@@ -1,0 +1,27 @@
+# 调用Docker 来为web-fe 服务部署一个独立的容器
+# 该容器基于与Compose 文件位于同一目录的 Dockerfile 构建的镜像
+# 基于该镜像启动的容器会运行 app.py 作为主程序，将 5000端口暴露给宿主机，连接到 counter-net 网络上，并挂在一个卷到/code
+version: "3.5" #定义了 Compose 文件格式 (主要是 API 版本)
+services: # 用于定义不同的服务, Docker Compose 会将每个服务部署在各自的容器中
+  web-fe: # 一个名为 web-fe 的Web前端服务
+    build: . # Docker 基于当前目录下 Dockerfile 中定义的指令来构建一个新镜像
+    command: python app.py # 指定Docker 在容器中执行名为 app.py 的 Python 脚本作为主程序
+    ports: # 指定Docker 将容器内(- target) 的 5000端口映射到主机(published)的5000端口
+      - target: 5000
+        published: 5000
+      networks: # 使得Docker 可以将服务连接到指定的网络上， 这个网络应该是已经存在的，或者是在networks 一级Key 中定义的网络
+        - counter-net
+      volumes: # 指定Docker 将 counter-vol 卷（source:) 挂载到容器内的/code (target:)，counter-vol卷 应该是已经存在的或者是在 volumes一级key中的定义的
+        - type: volume
+          source: counter-vol
+          target: /code
+    redis: # 一个名为 redis 的内存数据库服务
+      image: "redis:alpine" # 基于此镜像启动一个独立的名为 redis 的容器
+      networks: # 配置 redis 容器连接到counter-net 网络
+        counter-net:
+
+networks: # 用于指引 Docker 创建新的网络。默认情况下,Docker Compose 会创建 bridge 网络.只能实现同一主机上容器的连接
+  counter-net:
+
+volumes: # 用于指引 Docker 创建新的卷
+  counter-vol:
