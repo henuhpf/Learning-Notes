@@ -1,10 +1,10 @@
 public class Demo5 {
-    // ´æ»îµÄ¶ÔÏó´óÓÚsurvivalÇø¿Õ¼ä£¬½úÉıÀÏÄê´ú
+    // å­˜æ´»çš„å¯¹è±¡å¤§äºsurvivalåŒºç©ºé—´ï¼Œæ™‹å‡è€å¹´ä»£
     //java -Xms10M -Xmx10M -Xmn5M -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=10M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:gc.log Demo1
 
     // jmap -dump:format=b,file=./dumpFile.hprof pid
     // jhat dumpFile.hprof
-    // ¶à³öµÄ500KB¶ÔÏóÎªÀà¼ÓÔØÆ÷ ºÍ  Ò»Ğ©ÔËĞĞ¿â
+    // å¤šå‡ºçš„500KBå¯¹è±¡ä¸ºç±»åŠ è½½å™¨ å’Œ  ä¸€äº›è¿è¡Œåº“
     public static void main(String[] args) throws InterruptedException {
         Thread.sleep(200000);
         byte[] array1 = new byte[1024 * 1024];
