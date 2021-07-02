@@ -392,4 +392,4 @@ select * from products force index(index_category) where category='xx' and sub_c
 
 - CopyOnWriteArrayList 数组大小随着数组元素的增删而改变， ArrayList 和 Vector 会有一个 size 字段记录当前数组的大小，且数组会动态扩容。ArrayList 1.5倍扩容， Vector 默认每次增长当前数组个数（即翻倍增长），如果在初始化时设置 `public Vector(int initialCapacity, int capacityIncrement) `中的capacityIncrement参数， 则每次扩容时增长capacityIncrement个元素。
 
-- HashMap jdk1.7采用头插法， hashmap不是多线程安全的，在多线程情况下可能产生死循环链表的问题（死链）。jdk8采用尾插法， 当hashmap数组中某个下标的entry size > 8 则进入转化红黑树方法，在该方法中判断 hashmap数组的大小是否大于 64, 如果小于，则进行resize并返回， 如果大于 64， 则正式转化红黑树。
+- HashMap jdk1.7采用头插法， hashmap不是多线程安全的，在多线程情况下可能产生死循环链表的问题（死链）。jdk8采用尾插法， 当hashmap数组中某个下标的entry size > 8 则进入转化红黑树方法，在该方法中判断 hashmap数组的大小是否大于 64, 如果小于，则进行resize并返回， 如果大于等于 64， 则正式转化红黑树。
